@@ -16,6 +16,7 @@ button {
 
 html {
     scroll-behavior: smooth;
+    overflow-x: clip;
 }
 
 body {
@@ -23,7 +24,7 @@ body {
     background-color: #faf8f5;
     color: #2c2c2c;
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 /* Header & Navbar */
@@ -571,6 +572,30 @@ body {
 @media (max-width: 600px) {
     .site-header {
         padding: 4px 0;
+    }
+
+    .nav-container,
+    .nav-menu,
+    .filter-bar,
+    .rooms-grid,
+    .room-card,
+    .room-info,
+    .room-footer,
+    .booking-form,
+    .form-grid,
+    .form-group,
+    .price-calc-box,
+    .summary-box,
+    .contact-card {
+        min-width: 0;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        min-width: 0;
+        max-width: 100%;
     }
 
     .nav-container {
