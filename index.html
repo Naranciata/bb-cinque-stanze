@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&B Le Cinque Stanze - Ospitalità ed Eleganza</title>
+    <link rel="stylesheet" href="stile.css">
+</head>
+<body>
+
+    <!-- Header & Navbar -->
+    <header class="site-header">
+        <div class="nav-container">
+            <a href="#" class="logo">B&B Le Cinque Stanze</a>
+            <nav class="nav-menu">
+                <a href="#home">Home</a>
+                <a href="#stanze">Le Stanze</a>
+                <a href="#prenota">Prenota</a>
+                <a href="#contatti">Contatti</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Benvenuti nel Vostro Rifugio di Charme</h1>
+            <p>Cinque camere uniche nel cuore della bellezza, dove comfort moderno e tradizione si incontrano.</p>
+            <a href="#prenota" class="cta-btn">Prenota il Tuo Soggiorno</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-container">
+
+        <!-- Sezione Stanze (5 stanze) -->
+        <section id="stanze" class="section-stanze">
+            <div class="section-title">
+                <h2>Le Nostre 5 Camere</h2>
+                <p>Ogni stanza è arredata con cura per offrirvi un'esperienza indimenticabile</p>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">Tutte</button>
+                <button class="filter-btn" data-filter="coppia">Coppia</button>
+                <button class="filter-btn" data-filter="famiglia">Famiglia</button>
+                <button class="filter-btn" data-filter="vista">Vista</button>
+                <button class="filter-btn" data-filter="fino-100">Fino a 100€</button>
+                <button class="filter-btn" data-filter="100-130">100€–130€</button>
+                <button class="filter-btn" data-filter="oltre-130">Oltre 130€</button>
+            </div>
+
+            <div class="rooms-grid">
+                <!-- Stanza 1 -->
+                <div class="room-card" data-category="coppia" data-price-range="fino-100" data-max-guests="2">
+                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1040/400/250')"></div>
+                    <div class="room-info">
+                        <h3>1. Camera Deluxe</h3>
+                        <p class="room-desc">Spaziosa e luminosa, arredata con mobili d'epoca e affaccio sul giardino interno.</p>
+                        <ul class="amenities">
+                            <li>Wi-Fi Gratuito</li>
+                            <li>Aria Condizionata</li>
+                            <li>Bagno privato con doccia idromassaggio</li>
+                        </ul>
+                        <div class="room-footer">
+                            <span class="price">€ 95 <small>/ notte</small></span>
+                            <a href="#prenota" class="book-room-btn" data-room="deluxe">Prenota questa stanza</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stanza 2 -->
+                <div class="room-card" data-category="coppia" data-price-range="100-130" data-max-guests="2">
+                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1041/400/250')"></div>
+                    <div class="room-info">
+                        <h3>2. Suite Romantica</h3>
+                        <p class="room-desc">Ideale per coppie, dotata di letto king size, travi a vista e romantica vasca freestanding.</p>
+                        <ul class="amenities">
+                            <li>Letto King Size</li>
+                            <li>Vasca freestanding in camera</li>
+                            <li>Minibar e Macchina Nespresso</li>
+                        </ul>
+                        <div class="room-footer">
+                            <span class="price">€ 130 <small>/ notte</small></span>
+                            <a href="#prenota" class="book-room-btn" data-room="romantica">Prenota questa stanza</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stanza 3 -->
+                <div class="room-card" data-category="vista" data-price-range="100-130" data-max-guests="2">
+                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1043/400/250')"></div>
+                    <div class="room-info">
+                        <h3>3. Camera Vista Panoramica</h3>
+                        <p class="room-desc">Situata all'ultimo piano, offre una vista mozzafiato sui tetti storici della città.</p>
+                        <ul class="amenities">
+                            <li>Terrazza privata</li>
+                            <li>Smart TV 55"</li>
+                            <li>Cassetta di sicurezza</li>
+                        </ul>
+                        <div class="room-footer">
+                            <span class="price">€ 110 <small>/ notte</small></span>
+                            <a href="#prenota" class="book-room-btn" data-room="panoramica">Prenota questa stanza</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stanza 4 -->
+                <div class="room-card" data-category="coppia" data-price-range="fino-100" data-max-guests="2">
+                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1045/400/250')"></div>
+                    <div class="room-info">
+                        <h3>4. Camera Superior</h3>
+                        <p class="room-desc">Un perfetto connubio di design contemporaneo e dettagli accoglienti per il massimo relax.</p>
+                        <ul class="amenities">
+                            <li>Zona salotto</li>
+                            <li>Scrivania da lavoro</li>
+                            <li>Set cortesia biologico</li>
+                        </ul>
+                        <div class="room-footer">
+                            <span class="price">€ 85 <small>/ notte</small></span>
+                            <a href="#prenota" class="book-room-btn" data-room="superior">Prenota questa stanza</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stanza 5 -->
+                <div class="room-card" data-category="famiglia" data-price-range="oltre-130" data-max-guests="4">
+                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1047/400/250')"></div>
+                    <div class="room-info">
+                        <h3>5. Suite Familiare</h3>
+                        <p class="room-desc">Soluzione ampia e confortevole composta da due ambienti separati, perfetta per famiglie.</p>
+                        <ul class="amenities">
+                            <li>Due camere comunicanti</li>
+                            <li>Doppi servizi</li>
+                            <li>Capienza fino a 4 ospiti</li>
+                        </ul>
+                        <div class="room-footer">
+                            <span class="price">€ 150 <small>/ notte</small></span>
+                            <a href="#prenota" class="book-room-btn" data-room="familiare">Prenota questa stanza</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sezione Prenotazione -->
+        <section id="prenota" class="section-prenota">
+            <div class="section-title">
+                <h2>Prenota il Tuo Soggiorno</h2>
+                <p>Compila il modulo sottostante per verificare la disponibilità e calcolare il totale</p>
+            </div>
+
+            <form class="booking-form" id="booking-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="stanza">Seleziona Stanza</label>
+                        <select id="stanza" required>
+                            <option value="" disabled selected>-- Scegli la camera --</option>
+                            <option value="deluxe" data-price="95" data-max-guests="2">1. Camera Deluxe (€95/notte)</option>
+                            <option value="romantica" data-price="130" data-max-guests="2">2. Suite Romantica (€130/notte)</option>
+                            <option value="panoramica" data-price="110" data-max-guests="2">3. Camera Vista Panoramica (€110/notte)</option>
+                            <option value="superior" data-price="85" data-max-guests="2">4. Camera Superior (€85/notte)</option>
+                            <option value="familiare" data-price="150" data-max-guests="4">5. Suite Familiare (€150/notte)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ospiti">Numero Ospiti</label>
+                        <select id="ospiti" required>
+                            <option value="1">1 Ospite</option>
+                            <option value="2" selected>2 Ospiti</option>
+                            <option value="3">3 Ospiti</option>
+                            <option value="4">4 Ospiti</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkin">Data Check-in</label>
+                        <input type="date" id="checkin" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkout">Data Check-out</label>
+                        <input type="date" id="checkout" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome">Nome e Cognome</label>
+                        <input type="text" id="nome" placeholder="Mario Rossi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="mario.rossi@example.com" required>
+                    </div>
+                </div>
+
+                <!-- Box Calcolo Dinamico -->
+                <div id="price-calculation-box" class="price-calc-box" style="display: none;">
+                    <p>Notti: <span id="calc-nights">0</span></p>
+                    <p>Prezzo a notte: <span id="calc-nightly-price">€0</span></p>
+                    <h3>Totale Stimato: <span id="calc-total">€0</span></h3>
+                </div>
+
+                <!-- Box Messaggio Errore -->
+                <div id="form-error-box" class="form-error-box" style="display: none;"></div>
+
+                <button type="submit" class="submit-btn">Conferma Prenotazione</button>
+            </form>
+
+            <!-- Box Risultato / Riepilogo Prenotazione -->
+            <div id="booking-summary-box" class="summary-box" style="display: none;">
+                <h3>Ultima Prenotazione Effettuata</h3>
+                <div id="summary-content"></div>
+            </div>
+
+            <!-- Sezione Storico e Gestione LocalStorage -->
+            <div class="storage-management" style="margin-top: 40px; text-align: center; border-top: 1px solid #e0d6cc; padding-top: 30px;">
+                <h3 style="font-family: 'Georgia', serif; color: #4a3b32; margin-bottom: 15px;">Gestione Storico (LocalStorage)</h3>
+                <button id="clear-storage-btn" class="secondary-btn" type="button">Cancella Storico Prenotazioni</button>
+                <div id="saved-bookings-container" style="margin-top: 20px; text-align: left;"></div>
+            </div>
+        </section>
+
+        <!-- Sezione Contatti -->
+        <section id="contatti" class="section-contatti">
+            <div class="section-title">
+                <h2>Contatti e Informazioni</h2>
+                <p>Siamo a vostra completa disposizione per ogni necessità</p>
+            </div>
+
+            <div class="contact-card">
+                <div class="contact-info">
+                    <h3>B&B Le Cinque Stanze</h3>
+                    <p><strong>Indirizzo:</strong> Via dei Tigli 14, 50123 Firenze (FI)</p>
+                    <p><strong>Telefono:</strong> +39 055 1234567</p>
+                    <p><strong>Email:</strong> info@cinquestanzebb.it</p>
+                    <div class="hours">
+                        <p><strong>Orari Reception:</strong></p>
+                        <p>Check-in: dalle 14:00 alle 20:00</p>
+                        <p>Check-out: entro le 10:30</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>&copy; 2026 B&B Le Cinque Stanze. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
