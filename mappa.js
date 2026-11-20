@@ -8,12 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
         stazione: {
             title: "Percorso: Dalla Stazione Treni",
             time: "Circa 12 minuti a piedi oppure 2 fermate con la linea autobus urbana.",
-            description: "Dalla Stazione Centrale, procedere dritto lungo Corso Storico fino a Via della DEMO 12."
+            description: "Dalla Stazione Centrale, procedere dritto lungo Corso Storico fino a Via Esempio 12."
         },
         porto: {
             title: "Percorso: Dal Porto",
             time: "Circa 15 minuti in taxi dal Molo principale o collegamento diretto con navetta portuale.",
-            description: "Dal Molo principale, risalire lungo la dorsale costiera e imboccare Via della DEMO 12."
+            description: "Dal Molo principale, risalire lungo la dorsale costiera e imboccare Via Esempio 12."
         },
         aeroporto: {
             title: "Percorso: Dall'Aeroporto",
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             routeInfo.innerHTML = `
                 <h3>Mappa Interattiva - Panoramica</h3>
-                <p><strong>Stato:</strong> Seleziona uno dei pulsanti sopra ("Dalla Stazione", "Dal Porto", "Dall'Aeroporto") per evidenziare il percorso specifico verso il B&B La DEMO.</p>
+                <p><strong>Stato:</strong> Seleziona uno dei pulsanti sopra ("Dalla Stazione", "Dal Porto", "Dall'Aeroporto") per evidenziare il percorso specifico verso il B&B DEMO.</p>
             `;
         });
     }
