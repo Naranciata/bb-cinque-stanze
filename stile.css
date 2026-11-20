@@ -781,8 +781,21 @@ textarea:focus-visible {
 
 /* Smartphone molto compatti (fino a 600px) */
 @media (max-width: 600px) {
+    body {
+        padding-bottom: 90px;
+    }
+
     .site-header {
         padding: 4px 0;
+    }
+
+    .interactive-map-container {
+        padding: 16px 12px;
+        margin-top: 25px;
+    }
+
+    #mappa-svg {
+        min-height: 320px;
     }
 
     .nav-container,
