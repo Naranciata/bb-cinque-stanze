@@ -16,7 +16,7 @@ button {
 
 html {
     scroll-behavior: smooth;
-    overflow-x: clip;
+    overflow-x: hidden;
 }
 
 body {
@@ -24,7 +24,19 @@ body {
     background-color: #faf8f5;
     color: #2c2c2c;
     line-height: 1.6;
-    overflow-x: clip;
+    overflow-x: hidden;
+    min-width: 320px;
+}
+
+/* Focus-visible per accessibilità (Dark & Gold palette) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid #a3704c;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(163, 112, 76, 0.25);
 }
 
 /* Header & Navbar */
@@ -124,6 +136,19 @@ body {
 }
 
 /* Main Container */
+.main-container,
+.nav-container,
+.rooms-grid,
+.room-card,
+.arrival-grid,
+.arrival-card,
+.section-prenota,
+.interactive-map-container,
+.contact-card,
+.site-header {
+    min-width: 0;
+}
+
 .main-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -931,5 +956,17 @@ body {
         right: 0;
         width: calc(100vw - 30px);
         max-width: 90vw;
+    }
+}
+
+@media (max-width: 375px) {
+    .demo-chat-widget {
+        bottom: 12px;
+        right: 12px;
+    }
+    .demo-chat-panel {
+        right: 0;
+        width: calc(100vw - 24px);
+        max-width: 350px;
     }
 }

@@ -261,9 +261,9 @@
             <!-- Mappa Interattiva Stilizzata -->
             <div class="interactive-map-container">
                 <div class="map-controls">
-                    <button class="map-btn active-route" data-route="stazione">Dalla Stazione</button>
-                    <button class="map-btn" data-route="porto">Dal Porto</button>
-                    <button class="map-btn" data-route="aeroporto">Dall'Aeroporto</button>
+                    <button class="map-btn active-route" data-route="stazione" aria-pressed="true">Dalla Stazione</button>
+                    <button class="map-btn" data-route="porto" aria-pressed="false">Dal Porto</button>
+                    <button class="map-btn" data-route="aeroporto" aria-pressed="false">Dall'Aeroporto</button>
                     <button class="map-btn reset-btn" id="reset-map-btn">Reset Vista</button>
                 </div>
 
@@ -389,7 +389,7 @@
 
             <div class="contact-card">
                 <div class="contact-info">
-                    <h3>B&B NomeGenerico</h3>
+                    <h3>B&B la DEMO</h3>
                     <p><strong>Indirizzo:</strong> Via della DEMO 12, 01234 Città D'arte (N/A)</p>
                     <p><strong>Telefono:</strong> +39 055 1234567</p>
                     <p><strong>Email:</strong> info@lademobb.it</p>
@@ -411,7 +411,7 @@
 
     <!-- Widget Demo Info / Chat -->
     <div id="demo-chat-widget" class="demo-chat-widget">
-        <button id="demo-chat-toggle" class="demo-chat-toggle" aria-label="Apri Info / Chat">
+        <button id="demo-chat-toggle" class="demo-chat-toggle" aria-label="Apri Info / Chat" aria-expanded="false">
             <span class="chat-icon">💬</span> Info / Chat
         </button>
         <div id="demo-chat-panel" class="demo-chat-panel" aria-hidden="true">

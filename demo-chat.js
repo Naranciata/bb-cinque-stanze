@@ -9,11 +9,13 @@ document.addEventListener('DOMContentLoaded', function () {
         e.stopPropagation();
         const isOpen = panel.classList.toggle('open');
         panel.setAttribute('aria-hidden', !isOpen);
+        toggleBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     }
 
     function closePanel() {
         panel.classList.remove('open');
         panel.setAttribute('aria-hidden', 'true');
+        toggleBtn.setAttribute('aria-expanded', 'false');
     }
 
     toggleBtn.addEventListener('click', togglePanel);
@@ -23,6 +25,13 @@ document.addEventListener('DOMContentLoaded', function () {
     document.addEventListener('click', function (e) {
         const widget = document.getElementById('demo-chat-widget');
         if (widget && !widget.contains(e.target)) {
+            closePanel();
+        }
+    });
+
+    // Chiudi con il tasto Escape
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
             closePanel();
         }
     });

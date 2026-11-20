@@ -26,8 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
         mapBtns.forEach(btn => {
             if (btn.getAttribute('data-route') === routeKey) {
                 btn.classList.add('active-route');
+                btn.setAttribute('aria-pressed', 'true');
             } else {
                 btn.classList.remove('active-route');
+                btn.setAttribute('aria-pressed', 'false');
             }
         });
 
@@ -62,7 +64,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
-            mapBtns.forEach(btn => btn.classList.remove('active-route'));
+            mapBtns.forEach(btn => {
+                btn.classList.remove('active-route');
+                btn.setAttribute('aria-pressed', 'false');
+            });
             routePaths.forEach(path => {
                 path.classList.remove('active-path');
                 path.style.opacity = '0.8';
