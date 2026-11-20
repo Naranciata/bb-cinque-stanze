@@ -140,8 +140,6 @@ textarea:focus-visible {
 .nav-container,
 .rooms-grid,
 .room-card,
-.arrival-grid,
-.arrival-card,
 .section-prenota,
 .interactive-map-container,
 .contact-card,
@@ -491,49 +489,7 @@ textarea:focus-visible {
     margin-bottom: 70px;
 }
 
-.arrival-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-bottom: 25px;
-    min-width: 0;
-}
 
-.arrival-card {
-    background: #ffffff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-}
-
-.arrival-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-}
-
-.arrival-info {
-    padding: 30px 25px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.arrival-info h3 {
-    font-size: 1.35rem;
-    color: #4a3b32;
-    margin-bottom: 12px;
-    font-family: 'Georgia', serif;
-}
-
-.arrival-info p {
-    color: #666666;
-    font-size: 0.95rem;
-    line-height: 1.6;
-}
 
 .arrival-note {
     text-align: center;
@@ -714,8 +670,7 @@ textarea:focus-visible {
 
 /* Tablet (fino a 1024px): 2 colonne per le stanze e arrivi */
 @media (max-width: 1024px) {
-    .rooms-grid,
-    .arrival-grid {
+    .rooms-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
@@ -753,8 +708,7 @@ textarea:focus-visible {
     }
 
     /* Griglie: 1 colonna su mobile */
-    .rooms-grid,
-    .arrival-grid {
+    .rooms-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }
@@ -805,9 +759,6 @@ textarea:focus-visible {
     .room-card,
     .room-info,
     .room-footer,
-    .arrival-grid,
-    .arrival-card,
-    .arrival-info,
     .interactive-map-container,
     #mappa-3d-box,
     #mappa-svg,
