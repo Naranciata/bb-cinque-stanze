@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B&B Le Cinque Stanze - Ospitalità ed Eleganza</title>
+    <title>B&B La DEMO - Ospitalità ed Eleganza</title>
     <link rel="stylesheet" href="stile.css">
 </head>
 <body>
@@ -11,11 +11,12 @@
     <!-- Header & Navbar -->
     <header class="site-header">
         <div class="nav-container">
-            <a href="#" class="logo">B&B Le Cinque Stanze</a>
+            <a href="#" class="logo">B&B La DEMO</a>
             <nav class="nav-menu">
                 <a href="#home">Home</a>
                 <a href="#stanze">Le Stanze</a>
                 <a href="#prenota">Prenota</a>
+                <a href="#come-arrivare">Come Arrivare</a>
                 <a href="#contatti">Contatti</a>
             </nav>
         </div>
@@ -53,7 +54,7 @@
             <div class="rooms-grid">
                 <!-- Stanza 1 -->
                 <div class="room-card" data-category="coppia" data-price-range="fino-100" data-max-guests="2">
-                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1040/400/250')"></div>
+                    <div class="room-img" style="background-image: url('img/1-deluxe.jpg')"></div>
                     <div class="room-info">
                         <h3>1. Camera Deluxe</h3>
                         <p class="room-desc">Spaziosa e luminosa, arredata con mobili d'epoca e affaccio sul giardino interno.</p>
@@ -71,7 +72,7 @@
 
                 <!-- Stanza 2 -->
                 <div class="room-card" data-category="coppia" data-price-range="100-130" data-max-guests="2">
-                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1041/400/250')"></div>
+                    <div class="room-img" style="background-image: url('img/2-suite-romantica.jpg')"></div>
                     <div class="room-info">
                         <h3>2. Suite Romantica</h3>
                         <p class="room-desc">Ideale per coppie, dotata di letto king size, travi a vista e romantica vasca freestanding.</p>
@@ -89,7 +90,7 @@
 
                 <!-- Stanza 3 -->
                 <div class="room-card" data-category="vista" data-price-range="100-130" data-max-guests="2">
-                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1043/400/250')"></div>
+                    <div class="room-img" style="background-image: url('img/3-vista-panoramica.jpg')"></div>
                     <div class="room-info">
                         <h3>3. Camera Vista Panoramica</h3>
                         <p class="room-desc">Situata all'ultimo piano, offre una vista mozzafiato sui tetti storici della città.</p>
@@ -107,7 +108,7 @@
 
                 <!-- Stanza 4 -->
                 <div class="room-card" data-category="coppia" data-price-range="fino-100" data-max-guests="2">
-                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1045/400/250')"></div>
+                    <div class="room-img" style="background-image: url('img/4-superior.jpg')"></div>
                     <div class="room-info">
                         <h3>4. Camera Superior</h3>
                         <p class="room-desc">Un perfetto connubio di design contemporaneo e dettagli accoglienti per il massimo relax.</p>
@@ -125,7 +126,7 @@
 
                 <!-- Stanza 5 -->
                 <div class="room-card" data-category="famiglia" data-price-range="oltre-130" data-max-guests="4">
-                    <div class="room-img" style="background-image: url('https://picsum.photos/id/1047/400/250')"></div>
+                    <div class="room-img" style="background-image: url('img/5-suite-familiare.jpg')"></div>
                     <div class="room-info">
                         <h3>5. Suite Familiare</h3>
                         <p class="room-desc">Soluzione ampia e confortevole composta da due ambienti separati, perfetta per famiglie.</p>
@@ -222,6 +223,163 @@
             </div>
         </section>
 
+        <!-- Sezione Come Arrivare -->
+        <section id="come-arrivare" class="section-come-arrivare">
+            <div class="section-title">
+                <h2>Come Arrivare</h2>
+                <p>Le indicazioni per raggiungere facilmente il nostro B&B</p>
+            </div>
+
+            <div class="arrival-grid">
+                <!-- Card 1 -->
+                <div class="arrival-card">
+                    <div class="arrival-info">
+                        <h3>Dalla Stazione Treni</h3>
+                        <p>Circa 12 minuti a piedi dalla Stazione Centrale oppure 2 fermate con la linea autobus urbana.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="arrival-card">
+                    <div class="arrival-info">
+                        <h3>Dal Porto</h3>
+                        <p>Circa 15 minuti in taxi dal Molo principale o collegamento diretto con navetta portuale.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="arrival-card">
+                    <div class="arrival-info">
+                        <h3>Dall'Aeroporto</h3>
+                        <p>Circa 25-30 minuti tramite navetta aeroportuale fino al centro e breve tratto a piedi.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="arrival-note">Indirizzo e percorsi dimostrativi — Via della DEMO 12, Città d'Arte (prototipo didattico).</p>
+
+            <!-- Mappa Interattiva Stilizzata -->
+            <div class="interactive-map-container">
+                <div class="map-controls">
+                    <button class="map-btn active-route" data-route="stazione">Dalla Stazione</button>
+                    <button class="map-btn" data-route="porto">Dal Porto</button>
+                    <button class="map-btn" data-route="aeroporto">Dall'Aeroporto</button>
+                    <button class="map-btn reset-btn" id="reset-map-btn">Reset Vista</button>
+                </div>
+
+                <div id="mappa-3d-box">
+                    <svg id="mappa-svg" viewBox="0 0 800 420" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Sfondo mappa scuro -->
+                        <rect width="800" height="420" fill="#16181c" rx="12"/>
+
+                        <!-- Griglia geometrica isometrica di sfondo -->
+                        <g stroke="#22252a" stroke-width="1" opacity="0.3">
+                            <line x1="0" y1="70" x2="800" y2="70" />
+                            <line x1="0" y1="140" x2="800" y2="140" />
+                            <line x1="0" y1="210" x2="800" y2="210" />
+                            <line x1="0" y1="280" x2="800" y2="280" />
+                            <line x1="0" y1="350" x2="800" y2="350" />
+                            <line x1="133" y1="0" x2="133" y2="420" />
+                            <line x1="266" y1="0" x2="266" y2="420" />
+                            <line x1="400" y1="0" x2="400" y2="420" />
+                            <line x1="533" y1="0" x2="533" y2="420" />
+                            <line x1="666" y1="0" x2="666" y2="420" />
+                        </g>
+
+                        <!-- Rete di Strade Scure con bordo sottile -->
+                        <g id="road-network" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <!-- Bordo strade (base) -->
+                            <path d="M 120 360 L 230 360 L 230 210 L 350 210 L 480 210 L 480 355 L 670 355" stroke="#28303e" stroke-width="16" />
+                            <path d="M 350 210 L 350 90 L 500 90 L 650 85" stroke="#28303e" stroke-width="16" />
+                            <path d="M 230 140 L 500 140" stroke="#28303e" stroke-width="14" />
+                            <path d="M 120 270 L 600 270" stroke="#28303e" stroke-width="14" />
+                            <!-- Superficie strade -->
+                            <path d="M 120 360 L 230 360 L 230 210 L 350 210 L 480 210 L 480 355 L 670 355" stroke="#12151b" stroke-width="12" />
+                            <path d="M 350 210 L 350 90 L 500 90 L 650 85" stroke="#12151b" stroke-width="12" />
+                            <path d="M 230 140 L 500 140" stroke="#12151b" stroke-width="10" />
+                            <path d="M 120 270 L 600 270" stroke="#12151b" stroke-width="10" />
+                        </g>
+
+                        <!-- Zona Mare / Porto (in basso a sinistra) -->
+                        <path d="M 0 300 Q 100 280 180 340 T 320 420 L 0 420 Z" fill="#18202b" stroke="#2c3848" stroke-width="1.5"/>
+                        <g transform="translate(45, 362)">
+                            <rect width="90" height="24" rx="4" fill="#12151b" stroke="#293240" stroke-width="1" />
+                            <text x="45" y="16" fill="#6482a0" font-family="'Georgia', serif" font-size="13" font-weight="bold" text-anchor="middle">Molo / Porto</text>
+                        </g>
+
+                        <!-- Zona Aeroporto (in alto a destra) -->
+                        <polygon points="580,20 770,50 730,140 540,110" fill="#1b1e25" stroke="#333842" stroke-width="1.5"/>
+                        <g transform="translate(570, 58)">
+                            <rect width="180" height="24" rx="4" fill="#12151b" stroke="#2d3440" stroke-width="1" />
+                            <text x="90" y="16" fill="#a0a8b4" font-family="'Georgia', serif" font-size="12" font-weight="bold" text-anchor="middle">Aeroporto Internazionale</text>
+                        </g>
+
+                        <!-- Zona Stazione Treni (in basso a destra) -->
+                        <polygon points="560,320 760,300 780,390 580,410" fill="#1b1e25" stroke="#333842" stroke-width="1.5"/>
+                        <g transform="translate(605, 348)">
+                            <rect width="145" height="24" rx="4" fill="#12151b" stroke="#2d3440" stroke-width="1" />
+                            <text x="72" y="16" fill="#a0a8b4" font-family="'Georgia', serif" font-size="12" font-weight="bold" text-anchor="middle">Stazione Centrale</text>
+                        </g>
+
+                        <!-- Edifici 2.5D (Ombra/Spessore laterale + Tetto) -->
+                        <g id="buildings-25d">
+                            <!-- Edificio 1 -->
+                            <polygon points="80,112 180,92 200,162 100,182" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="80,100 180,80 200,150 100,170" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 2 -->
+                            <polygon points="240,72 360,52 380,122 260,142" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="240,60 360,40 380,110 260,130" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 3 -->
+                            <polygon points="420,92 500,72 520,142 440,162" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="420,80 500,60 520,130 440,150" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 4 -->
+                            <polygon points="60,212 180,192 200,262 80,282" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="60,200 180,180 200,250 80,270" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 5 -->
+                            <polygon points="240,192 380,172 400,252 260,272" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="240,180 380,160 400,240 260,260" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 6 -->
+                            <polygon points="440,192 520,172 540,242 460,262" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="440,180 520,160 540,230 460,250" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 7 -->
+                            <polygon points="120,312 220,292 240,352 140,372" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="120,300 220,280 240,340 140,360" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                            <!-- Edificio 8 -->
+                            <polygon points="440,292 540,272 560,342 460,362" fill="#15171c" stroke="#252a33" stroke-width="1" />
+                            <polygon points="440,280 540,260 560,330 460,350" fill="#22252b" stroke="#3c362a" stroke-width="1" />
+                        </g>
+
+                        <!-- B&B La DEMO (Centro) con Badge scuro -->
+                        <g id="bb-marker">
+                            <g transform="translate(350, 210)">
+                                <rect x="-110" y="32" width="220" height="38" rx="6" fill="#12151b" stroke="#2d3440" stroke-width="1" />
+                                <polygon points="0,-25 25,0 0,25 -25,0" fill="#a3704c" stroke="#f0d5be" stroke-width="2"/>
+                                <circle cx="0" cy="0" r="8" fill="#ffffff"/>
+                                <text x="0" y="48" fill="#f0d5be" font-family="'Georgia', serif" font-size="14" font-weight="bold" text-anchor="middle">B&B La DEMO</text>
+                                <text x="0" y="64" fill="#a3704c" font-family="'Segoe UI', sans-serif" font-size="11" text-anchor="middle">Via della DEMO 12</text>
+                            </g>
+                        </g>
+
+                        <!-- Tracciati Percorsi (Paths che seguono le strade) -->
+                        <path id="route-stazione" d="M 670 355 L 480 355 L 480 210 L 350 210" fill="none" stroke="#a3704c" stroke-width="5" stroke-dasharray="8,4" class="route-path active-path" />
+                        <path id="route-porto" d="M 120 360 L 230 360 L 230 210 L 350 210" fill="none" stroke="#c49a6c" stroke-width="2" stroke-dasharray="6,4" style="opacity: 0.3;" class="route-path" />
+                        <path id="route-aeroporto" d="M 650 85 L 500 85 L 500 210 L 350 210" fill="none" stroke="#d4af37" stroke-width="2" stroke-dasharray="6,4" style="opacity: 0.3;" class="route-path" />
+
+                        <!-- Marker di partenza stazioni -->
+                        <circle cx="670" cy="355" r="6" fill="#a3704c" stroke="#ffffff" stroke-width="1.5" />
+                        <circle cx="120" cy="360" r="6" fill="#c49a6c" stroke="#ffffff" stroke-width="1.5" />
+                        <circle cx="650" cy="85" r="6" fill="#d4af37" stroke="#ffffff" stroke-width="1.5" />
+                    </svg>
+                </div>
+
+                <div id="route-info" class="route-info-box">
+                    <h3>Percorso: Dalla Stazione Treni</h3>
+                    <p><strong>Tempo stimato:</strong> Circa 12 minuti a piedi oppure 2 fermate con la linea autobus urbana.</p>
+                    <p><strong>Tragitto:</strong> Dalla Stazione Centrale, procedere dritto lungo Corso Storico fino a Via della DEMO 12.</p>
+                </div>
+            </div>
+        </section>
+
         <!-- Sezione Contatti -->
         <section id="contatti" class="section-contatti">
             <div class="section-title">
@@ -231,10 +389,10 @@
 
             <div class="contact-card">
                 <div class="contact-info">
-                    <h3>B&B Le Cinque Stanze</h3>
-                    <p><strong>Indirizzo:</strong> Via dei Tigli 14, 50123 Firenze (FI)</p>
+                    <h3>B&B NomeGenerico</h3>
+                    <p><strong>Indirizzo:</strong> Via della DEMO 12, 01234 Città D'arte (N/A)</p>
                     <p><strong>Telefono:</strong> +39 055 1234567</p>
-                    <p><strong>Email:</strong> info@cinquestanzebb.it</p>
+                    <p><strong>Email:</strong> info@lademobb.it</p>
                     <div class="hours">
                         <p><strong>Orari Reception:</strong></p>
                         <p>Check-in: dalle 14:00 alle 20:00</p>
@@ -248,9 +406,27 @@
 
     <!-- Footer -->
     <footer class="site-footer">
-        <p>&copy; 2026 B&B Le Cinque Stanze. Tutti i diritti riservati.</p>
+        <p>&copy; 2026 B&B la DEMO. Tutti i diritti riservati.</p>
     </footer>
 
+    <!-- Widget Demo Info / Chat -->
+    <div id="demo-chat-widget" class="demo-chat-widget">
+        <button id="demo-chat-toggle" class="demo-chat-toggle" aria-label="Apri Info / Chat">
+            <span class="chat-icon">💬</span> Info / Chat
+        </button>
+        <div id="demo-chat-panel" class="demo-chat-panel" aria-hidden="true">
+            <div class="demo-chat-header">
+                <h4>Info / Chat</h4>
+                <button id="demo-chat-close" class="demo-chat-close" aria-label="Chiudi">&times;</button>
+            </div>
+            <div class="demo-chat-body">
+                <p>Questa pagina ha il solo scopo di DEMO.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="mappa.js"></script>
     <script src="script.js"></script>
+    <script src="demo-chat.js" defer></script>
 </body>
 </html>

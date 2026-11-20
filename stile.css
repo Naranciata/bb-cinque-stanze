@@ -81,7 +81,7 @@ body {
 .hero {
     height: 65vh;
     min-height: 400px;
-    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://picsum.photos/id/1039/1920/1080') no-repeat center center/cover;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('img/hero.jpg') no-repeat center center/cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -461,6 +461,190 @@ body {
     margin-bottom: 40px;
 }
 
+/* Sezione Come Arrivare */
+.section-come-arrivare {
+    margin-bottom: 70px;
+}
+
+.arrival-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 25px;
+    min-width: 0;
+}
+
+.arrival-card {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.arrival-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.arrival-info {
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.arrival-info h3 {
+    font-size: 1.35rem;
+    color: #4a3b32;
+    margin-bottom: 12px;
+    font-family: 'Georgia', serif;
+}
+
+.arrival-info p {
+    color: #666666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.arrival-note {
+    text-align: center;
+    color: #777777;
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-top: 15px;
+}
+
+/* Stili Mappa Interattiva 3D Dark & Gold */
+.interactive-map-container {
+    background-color: #16181c;
+    border: 1px solid #2d3138;
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 100%;
+    min-width: 0;
+}
+
+.map-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+    min-width: 0;
+}
+
+.map-btn {
+    background-color: #22262e;
+    color: #c5cbd3;
+    border: 1px solid #3c424d;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 44px;
+}
+
+.map-btn:hover {
+    background-color: #a3704c;
+    color: #ffffff;
+    border-color: #a3704c;
+}
+
+.map-btn.active-route {
+    background-color: #a3704c;
+    color: #ffffff;
+    border-color: #a3704c;
+    box-shadow: 0 4px 15px rgba(163, 112, 76, 0.35);
+}
+
+.map-btn.reset-btn {
+    background-color: #2c221e;
+    color: #d4a373;
+    border-color: #5c4033;
+}
+
+.map-btn.reset-btn:hover {
+    background-color: #5c4033;
+    color: #ffffff;
+}
+
+#mappa-3d-box {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #2d3138;
+    background-color: #16181c;
+    min-width: 0;
+}
+
+#mappa-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 100%;
+}
+
+.route-path {
+    transition: opacity 0.3s ease, stroke-width 0.3s ease;
+}
+
+@keyframes routeDash {
+    to {
+        stroke-dashoffset: -24;
+    }
+}
+
+#mappa-svg .route-path.active-path {
+    stroke-dasharray: 8, 4;
+    animation: routeDash 1.2s linear infinite;
+}
+
+@keyframes bbPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+#mappa-svg #bb-marker {
+    transform-origin: 350px 210px;
+    animation: bbPulse 2s ease-in-out infinite;
+}
+
+.route-info-box {
+    margin-top: 25px;
+    background-color: #1f232a;
+    border: 1px solid #323842;
+    border-left: 4px solid #a3704c;
+    padding: 20px 25px;
+    border-radius: 10px;
+    color: #d0d6de;
+    min-width: 0;
+}
+
+.route-info-box h3 {
+    font-family: 'Georgia', serif;
+    color: #f0d5be;
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+}
+
+.route-info-box p {
+    font-size: 0.95rem;
+    color: #a0a8b4;
+    margin-bottom: 6px;
+}
+
 .contact-card {
     background: #ffffff;
     max-width: 650px;
@@ -503,9 +687,10 @@ body {
    MEDIA QUERIES - RESPONSIVE DESIGN
    ========================================== */
 
-/* Tablet (fino a 1024px): 2 colonne per le stanze */
+/* Tablet (fino a 1024px): 2 colonne per le stanze e arrivi */
 @media (max-width: 1024px) {
-    .rooms-grid {
+    .rooms-grid,
+    .arrival-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
@@ -542,8 +727,9 @@ body {
         font-size: 1rem;
     }
 
-    /* Griglia Stanze: 1 colonna su mobile */
-    .rooms-grid {
+    /* Griglie: 1 colonna su mobile */
+    .rooms-grid,
+    .arrival-grid {
         grid-template-columns: 1fr;
         gap: 25px;
     }
@@ -581,6 +767,15 @@ body {
     .room-card,
     .room-info,
     .room-footer,
+    .arrival-grid,
+    .arrival-card,
+    .arrival-info,
+    .interactive-map-container,
+    #mappa-3d-box,
+    #mappa-svg,
+    .route-info-box,
+    .map-controls,
+    .map-btn,
     .booking-form,
     .form-grid,
     .form-group,
@@ -614,5 +809,127 @@ body {
     .nav-menu a {
         padding: 4px 6px;
         font-size: 0.8rem;
+    }
+}
+
+/* Widget Demo Info / Chat (Dark & Gold) */
+.demo-chat-widget {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1050;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.demo-chat-toggle {
+    background-color: #1a1e24;
+    color: #f0d5be;
+    border: 1px solid #a3704c;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    min-height: 48px;
+}
+
+.demo-chat-toggle:hover {
+    background-color: #22262e;
+    border-color: #f0d5be;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(163, 112, 76, 0.3);
+}
+
+.demo-chat-toggle .chat-icon {
+    font-size: 1.1rem;
+}
+
+.demo-chat-panel {
+    position: absolute;
+    bottom: 65px;
+    right: 0;
+    width: 320px;
+    max-width: 90vw;
+    background-color: #16181c;
+    border: 1px solid #3c424d;
+    border-radius: 12px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
+    color: #f0d5be;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeInPanel 0.25s ease forwards;
+}
+
+.demo-chat-panel.open {
+    display: flex;
+}
+
+@keyframes fadeInPanel {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.demo-chat-header {
+    background-color: #22262e;
+    padding: 12px 16px;
+    border-bottom: 1px solid #3c424d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.demo-chat-header h4 {
+    font-size: 1rem;
+    font-family: 'Georgia', serif;
+    color: #f0d5be;
+    margin: 0;
+}
+
+.demo-chat-close {
+    background: none;
+    border: none;
+    color: #a0a8b4;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: color 0.2s, background-color 0.2s;
+}
+
+.demo-chat-close:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.demo-chat-body {
+    padding: 22px 18px;
+    color: #d0d6de;
+    font-size: 0.95rem;
+    text-align: center;
+    line-height: 1.5;
+}
+
+@media (max-width: 480px) {
+    .demo-chat-widget {
+        bottom: 15px;
+        right: 15px;
+    }
+    .demo-chat-panel {
+        right: 0;
+        width: calc(100vw - 30px);
+        max-width: 90vw;
     }
 }
