@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookingSummaryBox = document.getElementById('booking-summary-box');
     const summaryContent = document.getElementById('summary-content');
     const formErrorBox = document.getElementById('form-error-box');
+    const nameErrorDiv = document.getElementById('nome-error');
 
     function showError(message) {
         formErrorBox.textContent = message;
@@ -22,9 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
         formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
+    function hideNameError() {
+        if (nameErrorDiv) {
+            nameErrorDiv.textContent = '';
+            nameErrorDiv.style.display = 'none';
+        }
+        nameInput.removeAttribute('aria-invalid');
+    }
+
     function hideError() {
         formErrorBox.textContent = '';
         formErrorBox.style.display = 'none';
+        hideNameError();
     }
 
     // Nascondi l'errore quando l'utente modifica qualsiasi campo del form
@@ -170,11 +180,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkinVal = checkinInput.value;
         const checkoutVal = checkoutInput.value;
 
-        // Validazione Nome e Cognome: obbligatorio, non può contenere numeri, e deve includere sia nome che cognome (almeno due parole di almeno 2 caratteri ciascuna, composte da lettere, spazi, apostrofi o trattini)
-        const nameRegex = /^[A-Za-zÀ-ÿ'-]{2,}$/;
+        // Validazione Nome e Cognome: obbligatorio, solo lettere (incluse accentate), spazi e apostrofi (niente numeri, punti, trattini o altri simboli)
+        const nameRegex = /^[A-Za-zÀ-ÿ']+$/;
         const nameWords = nameVal.split(/\s+/);
-        if (nameVal === '' || /[\d]/.test(nameVal) || nameWords.length < 2 || !nameWords.every(word => nameRegex.test(word))) {
-            showError('Errore: Il campo Nome e Cognome è obbligatorio, non può contenere numeri e deve includere sia nome che cognome (almeno due parole di almeno 2 caratteri ciascuna, composte da lettere, apostrofi o trattini).');
+        const hasOnlyAllowedChars = /^[A-Za-zÀ-ÿ' ]+$/.test(nameVal);
+
+        if (nameVal === '' || !hasOnlyAllowedChars || nameWords.length < 2 || !nameWords.every(word => nameRegex.test(word))) {
+            const errorMsg = 'Errore: Il campo Nome e Cognome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (es. Mario Rossi, senza numeri, punti o altri simboli).';
+            if (nameErrorDiv) {
+                nameErrorDiv.textContent = errorMsg;
+                nameErrorDiv.style.display = 'block';
+            }
+            nameInput.setAttribute('aria-invalid', 'true');
+            showError(errorMsg);
+            nameInput.focus();
             return;
         }
 
