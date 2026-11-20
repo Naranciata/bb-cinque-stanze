@@ -197,6 +197,20 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Filtro parolacce/insulti (parole intere, case-insensitive)
+        const forbiddenWords = ['cazzo', 'merda', 'stronzo', 'stronza', 'vaffanculo', 'idiota', 'cretino', 'imbecille', 'puttana', 'troia', 'bastardo', 'bastarda', 'coglione', 'pirla', 'minchia'];
+        if (nameWords.some(word => forbiddenWords.includes(word.toLowerCase()))) {
+            const errorMsg = 'Errore: Il campo Nome e Cognome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (es. Mario Rossi, senza numeri, punti o altri simboli).';
+            if (nameErrorDiv) {
+                nameErrorDiv.textContent = errorMsg;
+                nameErrorDiv.style.display = 'block';
+            }
+            nameInput.setAttribute('aria-invalid', 'true');
+            showError(errorMsg);
+            nameInput.focus();
+            return;
+        }
+
         // Validazione Capienza Massima Ospiti per la camera scelta
         const selectedOption = roomSelect.options[roomSelect.selectedIndex];
         const maxGuests = parseInt(selectedOption.getAttribute('data-max-guests'), 10) || 2;
