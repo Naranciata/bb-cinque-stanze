@@ -5,7 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const checkoutInput = document.getElementById('checkout');
     const guestsSelect = document.getElementById('ospiti');
     const nameInput = document.getElementById('nome');
+    const surnameInput = document.getElementById('cognome');
     const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('telefono');
+    const orarioArrivalSelect = document.getElementById('orario-arrivo');
+    const noteInput = document.getElementById('note');
+    const privacyCheckbox = document.getElementById('privacy');
 
     const priceCalcBox = document.getElementById('price-calculation-box');
     const calcNights = document.getElementById('calc-nights');
@@ -15,7 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookingSummaryBox = document.getElementById('booking-summary-box');
     const summaryContent = document.getElementById('summary-content');
     const formErrorBox = document.getElementById('form-error-box');
+    
     const nameErrorDiv = document.getElementById('nome-error');
+    const surnameErrorDiv = document.getElementById('cognome-error');
+    const phoneErrorDiv = document.getElementById('telefono-error');
+    const noteErrorDiv = document.getElementById('note-error');
 
     function showError(message) {
         formErrorBox.textContent = message;
@@ -23,18 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
         formErrorBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    function hideNameError() {
+    function hideFieldErrors() {
         if (nameErrorDiv) {
             nameErrorDiv.textContent = '';
             nameErrorDiv.style.display = 'none';
         }
-        nameInput.removeAttribute('aria-invalid');
+        if (surnameErrorDiv) {
+            surnameErrorDiv.textContent = '';
+            surnameErrorDiv.style.display = 'none';
+        }
+        if (phoneErrorDiv) {
+            phoneErrorDiv.textContent = '';
+            phoneErrorDiv.style.display = 'none';
+        }
+        if (noteErrorDiv) {
+            noteErrorDiv.textContent = '';
+            noteErrorDiv.style.display = 'none';
+        }
+        if (nameInput) nameInput.removeAttribute('aria-invalid');
+        if (surnameInput) surnameInput.removeAttribute('aria-invalid');
+        if (phoneInput) phoneInput.removeAttribute('aria-invalid');
+        if (noteInput) noteInput.removeAttribute('aria-invalid');
     }
 
     function hideError() {
         formErrorBox.textContent = '';
         formErrorBox.style.display = 'none';
-        hideNameError();
+        hideFieldErrors();
     }
 
     // Nascondi l'errore quando l'utente modifica qualsiasi campo del form
@@ -72,9 +96,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Funzione per ottenere la data locale in formato YYYY-MM-DD
+    function getLocalDateString(date = new Date()) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
+
     // Imposta la data minima di check-in a oggi
-    const today = new Date().toISOString().split('T')[0];
+    const today = getLocalDateString();
     checkinInput.min = today;
+
+    // Imposta la data minima iniziale di check-out (domani)
+    const initialCheckin = new Date();
+    const initialCheckout = new Date(initialCheckin);
+    initialCheckout.setDate(initialCheckout.getDate() + 1);
+    checkoutInput.min = getLocalDateString(initialCheckout);
+
+    // Funzione per aggiornare e disabilitare gli orari di arrivo passati se il check-in è oggi
+    function updateArrivalTimeOptions() {
+        const checkinVal = checkinInput.value;
+        const isToday = (checkinVal === today);
+
+        const options = orarioArrivalSelect.querySelectorAll('option');
+        options.forEach(opt => {
+            if (!opt.value) return; // Salta il placeholder
+            const parts = opt.value.split('-');
+            if (parts.length >= 2) {
+                const endTimeStr = parts[1].trim();
+                const [endHour, endMin] = endTimeStr.split(':').map(Number);
+                const now = new Date();
+                const currentTotalMin = now.getHours() * 60 + now.getMinutes();
+                const endTotalMin = endHour * 60 + (isNaN(endMin) ? 0 : endMin);
+
+                if (isToday && currentTotalMin > endTotalMin) {
+                    opt.disabled = true;
+                    if (!opt.textContent.includes(' (Passato)')) {
+                        opt.textContent += ' (Passato)';
+                    }
+                } else {
+                    opt.disabled = false;
+                    opt.textContent = opt.textContent.replace(' (Passato)', '');
+                }
+            }
+        });
+
+        const selectedOpt = orarioArrivalSelect.options[orarioArrivalSelect.selectedIndex];
+        if (selectedOpt && selectedOpt.disabled) {
+            orarioArrivalSelect.value = "";
+        }
+    }
+
+    // Chiama subito per aggiornare gli orari all'avvio
+    updateArrivalTimeOptions();
+
+    // Funzione di validazione delle date
+    function validateDates() {
+        const checkinVal = checkinInput.value;
+        const checkoutVal = checkoutInput.value;
+
+        if (checkinVal && checkinVal < today) {
+            showError("Errore: La data di check-in non può essere nel passato.");
+            return false;
+        }
+
+        if (checkinVal && checkoutVal && checkoutVal <= checkinVal) {
+            showError("Errore: La data di check-out deve essere successiva alla data di check-in.");
+            return false;
+        }
+
+        return true;
+    }
 
     // Funzione per visualizzare lo storico delle prenotazioni salvate nel localStorage
     function renderSavedBookings() {
@@ -86,11 +179,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let html = '<h4 style="margin-bottom: 10px; color: #4a3b32;">Storico Prenotazioni Salvate (' + bookings.length + '):</h4>';
         bookings.forEach((b, index) => {
+            let guestFullName = '';
+            if (b.guestNome && b.guestCognome) {
+                guestFullName = `${b.guestNome} ${b.guestCognome}`;
+            } else if (b.guestName) {
+                guestFullName = b.guestName;
+            } else {
+                guestFullName = 'Ospite';
+            }
+            let guestPhone = b.guestTelefono || 'Non specificato';
+            let arrivalTime = b.orarioArrivo || 'Non specificato';
+            let noteItemHtml = b.note ? `<p><strong>Note:</strong> ${b.note}</p>` : '';
+
             html += `
                 <div class="saved-booking-item">
                     <p><strong>#${index + 1} - Codice:</strong> ${b.id}</p>
-                    <p><strong>Ospite:</strong> ${b.guestName} (${b.guestEmail})</p>
-                    <p><strong>Camera:</strong> ${b.roomName}</p>
+                    <p><strong>Ospite:</strong> ${guestFullName} | <strong>Tel:</strong> ${guestPhone} (${b.guestEmail || 'N/D'})</p>
+                    <p><strong>Camera:</strong> ${b.roomName} | <strong>Arrivo:</strong> ${arrivalTime}</p>
+                    ${noteItemHtml}
                     <p><strong>Periodo:</strong> ${b.checkin} ➔ ${b.checkout} (${b.nights} notti) | <strong>Totale:</strong> €${b.totalPrice}</p>
                 </div>
             `;
@@ -108,6 +214,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const roomType = btn.getAttribute('data-room');
             roomSelect.value = roomType;
             
+            if (!checkinInput.value || checkinInput.value < today) {
+                checkinInput.value = today;
+                const nextDay = new Date();
+                nextDay.setDate(nextDay.getDate() + 1);
+                const nextDayStr = getLocalDateString(nextDay);
+                checkoutInput.min = nextDayStr;
+                if (!checkoutInput.value || checkoutInput.value <= today) {
+                    checkoutInput.value = nextDayStr;
+                }
+            }
+            updateArrivalTimeOptions();
+
             // Scorri dolcemente alla sezione prenotazione
             document.getElementById('prenota').scrollIntoView({ behavior: 'smooth' });
             calculatePrice();
@@ -150,43 +268,106 @@ document.addEventListener('DOMContentLoaded', () => {
         if (checkinInput.value) {
             const nextDay = new Date(checkinInput.value);
             nextDay.setDate(nextDay.getDate() + 1);
-            checkoutInput.min = nextDay.toISOString().split('T')[0];
+            checkoutInput.min = getLocalDateString(nextDay);
         }
         calculatePrice();
     });
 
     checkinInput.addEventListener('change', () => {
-        const checkinVal = new Date(checkinInput.value);
-        const nextDay = new Date(checkinVal);
+        const checkinVal = checkinInput.value;
+        if (checkinVal < today) {
+            showError("Errore: La data di check-in non può essere nel passato.");
+            checkinInput.value = today;
+        } else {
+            hideError();
+        }
+
+        const checkinDate = new Date(checkinInput.value);
+        const nextDay = new Date(checkinDate);
         nextDay.setDate(nextDay.getDate() + 1);
-        const nextDayStr = nextDay.toISOString().split('T')[0];
+        const nextDayStr = getLocalDateString(nextDay);
         
         checkoutInput.min = nextDayStr;
         if (checkoutInput.value && checkoutInput.value < nextDayStr) {
             checkoutInput.value = nextDayStr;
         }
+        updateArrivalTimeOptions();
+        validateDates();
         calculatePrice();
     });
 
-    checkoutInput.addEventListener('change', calculatePrice);
+    checkoutInput.addEventListener('change', () => {
+        const checkinVal = checkinInput.value;
+        const checkoutVal = checkoutInput.value;
+        if (checkinVal && checkoutVal && checkoutVal <= checkinVal) {
+            showError("Errore: La data di check-out deve essere successiva alla data di check-in.");
+            const nextDay = new Date(checkinVal);
+            nextDay.setDate(nextDay.getDate() + 1);
+            checkoutInput.value = getLocalDateString(nextDay);
+        } else {
+            hideError();
+        }
+        validateDates();
+        calculatePrice();
+    });
 
     // Invio del form
     bookingForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
         const nameVal = nameInput.value.trim();
+        const surnameVal = surnameInput.value.trim();
         const emailVal = emailInput.value.trim();
+        const phoneVal = phoneInput.value.trim();
+        const orarioVal = orarioArrivalSelect.value;
+        const noteVal = noteInput.value.trim();
         const roomVal = roomSelect.value;
         const checkinVal = checkinInput.value;
         const checkoutVal = checkoutInput.value;
 
-        // Validazione Nome e Cognome: obbligatorio, solo lettere (incluse accentate), spazi e apostrofi (niente numeri, punti, trattini o altri simboli)
+        // Validazione date (Check-in nel passato o check-out non successivo)
+        if (!checkinVal || checkinVal < today) {
+            const errorMsg = 'Errore: La data di check-in è obbligatoria e non può essere nel passato.';
+            showError(errorMsg);
+            checkinInput.focus();
+            return;
+        }
+
+        if (!checkoutVal || checkoutVal <= checkinVal) {
+            const errorMsg = 'Errore: La data di check-out è obbligatoria e deve essere successiva alla data di check-in.';
+            showError(errorMsg);
+            checkoutInput.focus();
+            return;
+        }
+
+        // Controllo orario di arrivo se check-in è oggi
+        if (checkinVal === today) {
+            updateArrivalTimeOptions();
+            if (!orarioVal) {
+                const errorMsg = 'Errore: Seleziona un orario indicativo di arrivo.';
+                showError(errorMsg);
+                orarioArrivalSelect.focus();
+                return;
+            }
+            const selectedOpt = orarioArrivalSelect.options[orarioArrivalSelect.selectedIndex];
+            if (selectedOpt && selectedOpt.disabled) {
+                const errorMsg = "Errore: L'orario di arrivo selezionato è già passato per la giornata odierna. Seleziona un orario futuro.";
+                showError(errorMsg);
+                orarioArrivalSelect.focus();
+                return;
+            }
+        }
+
+        // Lista parole proibite (anti-parolacce)
+        const forbiddenWords = ['cazzo', 'merda', 'stronzo', 'stronza', 'vaffanculo', 'idiota', 'cretino', 'imbecille', 'puttana', 'troia', 'bastardo', 'bastarda', 'coglione', 'pirla', 'minchia'];
+
+        // Validazione Nome: obbligatorio, solo lettere (incluse accentate), spazi e apostrofi
         const nameRegex = /^[A-Za-zÀ-ÿ']+$/;
         const nameWords = nameVal.split(/\s+/);
-        const hasOnlyAllowedChars = /^[A-Za-zÀ-ÿ' ]+$/.test(nameVal);
+        const hasOnlyAllowedCharsName = /^[A-Za-zÀ-ÿ' ]+$/.test(nameVal);
 
-        if (nameVal === '' || !hasOnlyAllowedChars || nameWords.length < 2 || !nameWords.every(word => nameRegex.test(word))) {
-            const errorMsg = 'Errore: Il campo Nome e Cognome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (es. Mario Rossi, senza numeri, punti o altri simboli).';
+        if (nameVal === '' || !hasOnlyAllowedCharsName || !nameWords.every(word => nameRegex.test(word))) {
+            const errorMsg = 'Errore: Il campo Nome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (senza numeri, punti o altri simboli).';
             if (nameErrorDiv) {
                 nameErrorDiv.textContent = errorMsg;
                 nameErrorDiv.style.display = 'block';
@@ -197,10 +378,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Filtro parolacce/insulti (parole intere, case-insensitive)
-        const forbiddenWords = ['cazzo', 'merda', 'stronzo', 'stronza', 'vaffanculo', 'idiota', 'cretino', 'imbecille', 'puttana', 'troia', 'bastardo', 'bastarda', 'coglione', 'pirla', 'minchia'];
         if (nameWords.some(word => forbiddenWords.includes(word.toLowerCase()))) {
-            const errorMsg = 'Errore: Il campo Nome e Cognome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (es. Mario Rossi, senza numeri, punti o altri simboli).';
+            const errorMsg = 'Errore: Il campo Nome non è valido.';
             if (nameErrorDiv) {
                 nameErrorDiv.textContent = errorMsg;
                 nameErrorDiv.style.display = 'block';
@@ -211,13 +390,46 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Validazione Capienza Massima Ospiti per la camera scelta
-        const selectedOption = roomSelect.options[roomSelect.selectedIndex];
-        const maxGuests = parseInt(selectedOption.getAttribute('data-max-guests'), 10) || 2;
-        const selectedGuests = parseInt(guestsSelect.value, 10);
+        // Validazione Cognome: obbligatorio, solo lettere (incluse accentate), spazi e apostrofi
+        const surnameWords = surnameVal.split(/\s+/);
+        const hasOnlyAllowedCharsSurname = /^[A-Za-zÀ-ÿ' ]+$/.test(surnameVal);
 
-        if (selectedGuests > maxGuests) {
-            showError(`Errore: La camera selezionata (${selectedOption.text}) ha una capienza massima di ${maxGuests} ospiti. Non puoi selezionare ${selectedGuests} ospiti.`);
+        if (surnameVal === '' || !hasOnlyAllowedCharsSurname || !surnameWords.every(word => nameRegex.test(word))) {
+            const errorMsg = 'Errore: Il campo Cognome è obbligatorio e deve contenere solo lettere (incluse accentate), spazi e apostrofi (senza numeri, punti o altri simboli).';
+            if (surnameErrorDiv) {
+                surnameErrorDiv.textContent = errorMsg;
+                surnameErrorDiv.style.display = 'block';
+            }
+            surnameInput.setAttribute('aria-invalid', 'true');
+            showError(errorMsg);
+            surnameInput.focus();
+            return;
+        }
+
+        if (surnameWords.some(word => forbiddenWords.includes(word.toLowerCase()))) {
+            const errorMsg = 'Errore: Il campo Cognome non è valido.';
+            if (surnameErrorDiv) {
+                surnameErrorDiv.textContent = errorMsg;
+                surnameErrorDiv.style.display = 'block';
+            }
+            surnameInput.setAttribute('aria-invalid', 'true');
+            showError(errorMsg);
+            surnameInput.focus();
+            return;
+        }
+
+        // Validazione Telefono: obbligatorio, cifre, spazi e prefisso + opzionale, minimo 8 cifre
+        const digitCount = phoneVal.replace(/\D/g, '').length;
+        const phoneRegex = /^\+?[\d\s]{8,25}$/;
+        if (phoneVal === '' || !phoneRegex.test(phoneVal) || digitCount < 8) {
+            const errorMsg = 'Errore: Il campo Telefono è obbligatorio e deve contenere un numero valido (cifre, spazi e prefisso + opzionale, minimo 8 cifre).';
+            if (phoneErrorDiv) {
+                phoneErrorDiv.textContent = errorMsg;
+                phoneErrorDiv.style.display = 'block';
+            }
+            phoneInput.setAttribute('aria-invalid', 'true');
+            showError(errorMsg);
+            phoneInput.focus();
             return;
         }
 
@@ -225,6 +437,37 @@ document.addEventListener('DOMContentLoaded', () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(emailVal)) {
             showError("Errore: Inserisci un indirizzo email valido (es. utente@esempio.it).");
+            emailInput.focus();
+            return;
+        }
+
+        // Validazione Orario di arrivo
+        if (!orarioVal) {
+            showError("Errore: Seleziona un orario indicativo di arrivo.");
+            orarioArrivalSelect.focus();
+            return;
+        }
+
+        // Validazione Note (facoltativo, ma se inserito filtra parolacce)
+        if (noteVal !== '') {
+            const noteWords = noteVal.split(/\s+/);
+            if (noteWords.some(word => forbiddenWords.includes(word.toLowerCase()))) {
+                const errorMsg = 'Errore: Il campo Note contiene termini non consentiti.';
+                if (noteErrorDiv) {
+                    noteErrorDiv.textContent = errorMsg;
+                    noteErrorDiv.style.display = 'block';
+                }
+                noteInput.setAttribute('aria-invalid', 'true');
+                showError(errorMsg);
+                noteInput.focus();
+                return;
+            }
+        }
+
+        // Validazione Privacy
+        if (!privacyCheckbox.checked) {
+            showError("Errore: È necessario accettare l'informativa sulla Privacy e i Termini di Soggiorno per procedere.");
+            privacyCheckbox.focus();
             return;
         }
 
@@ -260,8 +503,13 @@ document.addEventListener('DOMContentLoaded', () => {
             nights: calcResult.nights,
             pricePerNight: calcResult.pricePerNight,
             totalPrice: calcResult.total,
-            guestName: nameVal,
+            guestNome: nameVal,
+            guestCognome: surnameVal,
+            guestTelefono: phoneVal,
+            guestName: `${nameVal} ${surnameVal}`,
             guestEmail: emailVal,
+            orarioArrivo: orarioVal,
+            note: noteVal,
             createdAt: new Date().toLocaleString()
         };
 
@@ -271,11 +519,17 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('bb_bookings', JSON.stringify(bookings));
 
         // Mostra il riepilogo a schermo
+        let noteSummaryHtml = bookingData.note ? `<p><strong>Note o richieste:</strong> ${bookingData.note}</p>` : '';
         summaryContent.innerHTML = `
             <p><strong>Codice Prenotazione:</strong> ${bookingData.id}</p>
-            <p><strong>Intestatario:</strong> ${bookingData.guestName} (${bookingData.guestEmail})</p>
+            <p><strong>Nome:</strong> ${bookingData.guestNome}</p>
+            <p><strong>Cognome:</strong> ${bookingData.guestCognome}</p>
+            <p><strong>Telefono:</strong> ${bookingData.guestTelefono}</p>
+            <p><strong>Email:</strong> ${bookingData.guestEmail}</p>
             <p><strong>Camera:</strong> ${bookingData.roomName}</p>
             <p><strong>Ospiti:</strong> ${bookingData.guests}</p>
+            <p><strong>Orario Arrivo:</strong> ${bookingData.orarioArrivo}</p>
+            ${noteSummaryHtml}
             <p><strong>Periodo:</strong> Dal ${bookingData.checkin} al ${bookingData.checkout} (${bookingData.nights} notti)</p>
             <p><strong>Totale Pagato / Dovuto:</strong> <span style="color: #27ae60; font-weight: bold; font-size: 1.1rem;">€${bookingData.totalPrice}</span></p>
             <p style="margin-top: 10px; font-style: italic; color: #555;">Una email di conferma è stata inviata a ${bookingData.guestEmail}.</p>

@@ -186,15 +186,51 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nome">Nome e Cognome</label>
-                        <input type="text" id="nome" placeholder="Mario Rossi" required aria-describedby="nome-error">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" placeholder="Mario" required aria-describedby="nome-error">
                         <div id="nome-error" style="color: #d9534f; font-size: 0.85rem; margin-top: 4px; display: none;" aria-live="polite"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cognome">Cognome</label>
+                        <input type="text" id="cognome" placeholder="Rossi" required aria-describedby="cognome-error">
+                        <div id="cognome-error" style="color: #d9534f; font-size: 0.85rem; margin-top: 4px; display: none;" aria-live="polite"></div>
                     </div>
 
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" id="email" placeholder="mario.rossi@example.com" required>
                     </div>
+
+                    <div class="form-group">
+                        <label for="telefono">Telefono</label>
+                        <input type="tel" id="telefono" placeholder="+39 333 1234567" required aria-describedby="telefono-error">
+                        <div id="telefono-error" style="color: #d9534f; font-size: 0.85rem; margin-top: 4px; display: none;" aria-live="polite"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orario-arrivo">Orario indicativo di arrivo</label>
+                        <select id="orario-arrivo" required>
+                            <option value="" disabled selected>-- Seleziona orario --</option>
+                            <option value="14:00 - 16:00">14:00 - 16:00</option>
+                            <option value="16:00 - 18:00">16:00 - 18:00</option>
+                            <option value="18:00 - 20:00">18:00 - 20:00</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="note">Note o richieste speciali</label>
+                        <input type="text" id="note" placeholder="Es. intolleranze, culla, arrivo tardivo" aria-describedby="note-error">
+                        <div id="note-error" style="color: #d9534f; font-size: 0.85rem; margin-top: 4px; display: none;" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <!-- Checkbox Privacy -->
+                <div class="form-group privacy-group">
+                    <input type="checkbox" id="privacy" required>
+                    <label for="privacy">
+                        Accetto l'informativa sulla Privacy e i Termini di Soggiorno *
+                    </label>
                 </div>
 
                 <!-- Box Calcolo Dinamico -->
@@ -208,6 +244,7 @@
                 <div id="form-error-box" class="form-error-box" style="display: none;"></div>
 
                 <button type="submit" class="submit-btn">Conferma Prenotazione</button>
+                <p class="demo-note">Nota dimostrativa: nessun pagamento o dato di carta di credito viene richiesto in questa demo.</p>
             </form>
 
             <!-- Box Risultato / Riepilogo Prenotazione -->
@@ -239,7 +276,6 @@
                     <button class="map-btn active-route" data-route="stazione" aria-pressed="true">Dalla Stazione</button>
                     <button class="map-btn" data-route="porto" aria-pressed="false">Dal Porto</button>
                     <button class="map-btn" data-route="aeroporto" aria-pressed="false">Dall'Aeroporto</button>
-                    <button class="map-btn reset-btn" id="reset-map-btn">Reset Vista</button>
                 </div>
 
                 <div id="mappa-3d-box">

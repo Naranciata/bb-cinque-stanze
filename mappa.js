@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mapBtns = document.querySelectorAll('.map-btn[data-route]');
-    const resetBtn = document.getElementById('reset-map-btn');
     const routePaths = document.querySelectorAll('.route-path');
     const routeInfo = document.getElementById('route-info');
 
@@ -55,28 +54,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function resetMap() {
+        mapBtns.forEach(btn => {
+            btn.classList.remove('active-route');
+            btn.setAttribute('aria-pressed', 'false');
+        });
+        routePaths.forEach(path => {
+            path.classList.remove('active-path');
+            path.style.opacity = '0.8';
+            path.style.strokeWidth = '3.5';
+        });
+        routeInfo.innerHTML = `
+            <h3>Mappa Interattiva - Panoramica</h3>
+            <p><strong>Stato:</strong> Seleziona uno dei pulsanti sopra ("Dalla Stazione", "Dal Porto", "Dall'Aeroporto") per evidenziare il percorso specifico verso il B&B DEMO.</p>
+        `;
+    }
+
     mapBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const route = btn.getAttribute('data-route');
-            setActiveRoute(route);
+            if (btn.classList.contains('active-route')) {
+                resetMap();
+            } else {
+                setActiveRoute(route);
+            }
         });
     });
-
-    if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-            mapBtns.forEach(btn => {
-                btn.classList.remove('active-route');
-                btn.setAttribute('aria-pressed', 'false');
-            });
-            routePaths.forEach(path => {
-                path.classList.remove('active-path');
-                path.style.opacity = '0.8';
-                path.style.strokeWidth = '3.5';
-            });
-            routeInfo.innerHTML = `
-                <h3>Mappa Interattiva - Panoramica</h3>
-                <p><strong>Stato:</strong> Seleziona uno dei pulsanti sopra ("Dalla Stazione", "Dal Porto", "Dall'Aeroporto") per evidenziare il percorso specifico verso il B&B DEMO.</p>
-            `;
-        });
-    }
 });

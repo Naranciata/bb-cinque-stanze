@@ -371,6 +371,32 @@ textarea:focus-visible {
     box-shadow: 0 0 0 3px rgba(163, 112, 76, 0.15);
 }
 
+/* Privacy Group Alignment */
+.privacy-group {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 12px !important;
+    margin-bottom: 20px;
+}
+
+.privacy-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-height: auto;
+    margin: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.privacy-group label {
+    margin: 0;
+    font-weight: normal;
+    font-size: 0.95rem;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
 /* Box Errore Form */
 .form-error-box {
     background-color: #f8d7da;
@@ -400,6 +426,13 @@ textarea:focus-visible {
 
 .submit-btn:hover {
     background-color: #8a5e3e;
+}
+
+.demo-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #777777;
+    margin-top: 12px;
 }
 
 /* Bottone Secondario (Cancella Storage) */
