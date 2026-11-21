@@ -69,6 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const clearStorageBtn = document.getElementById('clear-storage-btn');
     const savedBookingsContainer = document.getElementById('saved-bookings-container');
 
+    // Struttura dati delle camere (preparata per futura integrazione API/Database SQL)
+    const roomsData = [
+        { id: 'deluxe', name: 'Camera Deluxe', category: 'coppia', basePrice: 95, maxGuests: 2 },
+        { id: 'romantica', name: 'Suite Romantica', category: 'coppia', basePrice: 130, maxGuests: 2 },
+        { id: 'panoramica', name: 'Camera Vista Panoramica', category: 'vista', basePrice: 110, maxGuests: 2 },
+        { id: 'superior', name: 'Camera Superior', category: 'coppia', basePrice: 85, maxGuests: 2 },
+        { id: 'familiare', name: 'Suite Familiare', category: 'famiglia', basePrice: 150, maxGuests: 4 }
+    ];
+
     // Filtri Stanze
     const filterButtons = document.querySelectorAll('.filter-btn');
     const roomCards = document.querySelectorAll('.room-card');
@@ -81,16 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const filterValue = btn.getAttribute('data-filter');
 
             roomCards.forEach(card => {
-                if (filterValue === 'all') {
+                const category = card.getAttribute('data-category');
+                if (filterValue === 'all' || category === filterValue) {
                     card.style.display = 'flex';
                 } else {
-                    const category = card.getAttribute('data-category');
-                    const priceRange = card.getAttribute('data-price-range');
-                    if (category === filterValue || priceRange === filterValue) {
-                        card.style.display = 'flex';
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    card.style.display = 'none';
                 }
             });
         });
